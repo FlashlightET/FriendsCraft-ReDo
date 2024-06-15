@@ -16,7 +16,7 @@ public class ServalEntityGeoRenderer extends GeoEntityRenderer<ServalEntity> {
         return new Identifier("kemonofriends", "textures/friends/serval.png");
     }
 
-    protected void scale(ServalEntity entity, MatrixStack matrixStack, float f) {
+    protected void scale(MatrixStack matrixStack) {
         matrixStack.scale(0.9375F, 0.9375F, 0.9375F);
     }
 }
