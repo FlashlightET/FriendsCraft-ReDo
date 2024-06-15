@@ -1,5 +1,6 @@
 package net.ezogaming;
 
+import net.ezogaming.entity.ServalEntity;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;

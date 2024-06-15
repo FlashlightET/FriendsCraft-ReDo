@@ -1,12 +1,12 @@
 package net.ezogaming;
 
+import net.ezogaming.entity.ServalEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 public class ServalEntityModel extends EntityModel<ServalEntity> {
     public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier("kemonofriends", "serval"), "main");
