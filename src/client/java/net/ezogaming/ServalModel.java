@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class ServalEntityModel extends EntityModel<ServalEntity> {
+public class ServalModel extends EntityModel<ServalEntity> {
     public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier("kemonofriends", "serval"), "main");
     private final ModelPart Head;
     private final ModelPart Body;
@@ -17,7 +17,7 @@ public class ServalEntityModel extends EntityModel<ServalEntity> {
     private final ModelPart RightLeg;
     private final ModelPart LeftLeg;
 
-    public ServalEntityModel(ModelPart root) {
+    public ServalModel(ModelPart root) {
         this.Head = root.getChild("Head");
         this.Body = root.getChild("Body");
         this.RightArm = root.getChild("RightArm");
