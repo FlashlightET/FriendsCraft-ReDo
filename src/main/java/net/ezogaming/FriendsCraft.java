@@ -1,15 +1,17 @@
 package net.ezogaming;
 
-import net.ezogaming.entity.ServalEntity;
+import net.ezogaming.entity.*;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -26,6 +28,8 @@ public class FriendsCraft implements ModInitializer {
 	//Setup Entities p1
 	public static final EntityType<ServalEntity> SERVAL;
 
+
+	//Setup Entities p2
 	static {
 		SERVAL = Registry.register(
 				Registries.ENTITY_TYPE,
@@ -36,10 +40,23 @@ public class FriendsCraft implements ModInitializer {
 		);
 	}
 
+	public static final EntityType<TokiEntity> TOKI;
+
+	static {
+		TOKI = Registry.register(
+				Registries.ENTITY_TYPE,
+				new Identifier("kemonofriends", "toki"),
+				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, TokiEntity::new)
+						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.build()
+		);
+	}
+
 
 
 	// Spawn eggs
 	public static final Item SERVAL_SPAWN_EGG = new SpawnEggItem(SERVAL, 0xF5CA52, 0x7F5028, new FabricItemSettings());
+	public static final Item TOKI_SPAWN_EGG = new SpawnEggItem(TOKI, 0xFFFFFF, 0xDD5440, new FabricItemSettings());
 
 
 
@@ -54,8 +71,19 @@ public class FriendsCraft implements ModInitializer {
 		// Proceed with mild caution.
 		LOGGER.info("kf mod initializing");
 		FabricDefaultAttributeRegistry.register(SERVAL, ServalEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(TOKI, TokiEntity.createAttributes());
 		//eggs
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "serval_spawn_egg"), SERVAL_SPAWN_EGG);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "toki_spawn_egg"), TOKI_SPAWN_EGG);
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(SERVAL_SPAWN_EGG);
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(TOKI_SPAWN_EGG);
+		});
+
 		LOGGER.info("kf mod initialized");
 	}
 }

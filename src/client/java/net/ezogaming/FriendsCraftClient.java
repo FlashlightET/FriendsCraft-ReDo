@@ -7,13 +7,11 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 
 public class FriendsCraftClient implements ClientModInitializer {
-	public static final EntityModelLayer MODEL_SERVAL_LAYER = new EntityModelLayer(new Identifier("kemonofriends", "serval"), "main");
-
 	@Override
 	public void onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		EntityRendererRegistry.register(FriendsCraft.SERVAL, ServalGeoRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(MODEL_SERVAL_LAYER, ServalModel::getTexturedModelData);
+		EntityRendererRegistry.register(FriendsCraft.TOKI, TokiGeoRenderer::new);
 	}
 
 
