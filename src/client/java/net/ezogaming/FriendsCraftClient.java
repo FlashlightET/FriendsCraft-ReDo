@@ -12,6 +12,8 @@ public class FriendsCraftClient implements ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		EntityRendererRegistry.register(FriendsCraft.SERVAL, ServalGeoRenderer::new);
 		EntityRendererRegistry.register(FriendsCraft.TOKI, TokiGeoRenderer::new);
+		EntityRendererRegistry.register(FriendsCraft.CARACAL, CaracalGeoRenderer::new);
+		EntityRendererRegistry.register(FriendsCraft.ROADRUNNER, RoadrunnerGeoRenderer::new);
 	}
 
 
