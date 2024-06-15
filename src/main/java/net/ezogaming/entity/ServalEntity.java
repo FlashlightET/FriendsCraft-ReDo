@@ -7,13 +7,20 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import software.bernie.geckolib.core.animation.RawAnimation;
 
 public class ServalEntity extends FriendEntity implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+
 
     public ServalEntity(EntityType<? extends FriendEntity> entityType, World world) {
         super(entityType, world);
@@ -28,11 +35,13 @@ public class ServalEntity extends FriendEntity implements GeoEntity {
     
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "idle", 5, state -> state.setAndContinue(DefaultAnimations.IDLE)));
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
     }
+
+
 }

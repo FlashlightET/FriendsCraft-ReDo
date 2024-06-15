@@ -36,7 +36,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
     }
 
     protected void initGoals() {
-        // Example AI goals
+        // Example AI goalss
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
