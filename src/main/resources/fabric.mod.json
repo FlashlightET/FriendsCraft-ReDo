@@ -1,0 +1,43 @@
+{
+	"schemaVersion": 1,
+	"id": "kemonofriends",
+	"version": "${version}",
+	"name": "FriendsCraft",
+	"description": "This may be the definitive KF mod.",
+	"authors": [
+		"EzoGaming"
+	],
+	"contact": {
+		"sources": "https://github.com/FlashlightET/FriendsCraft"
+	},
+	"license": "WTFPL",
+	"icon": "assets/kemonofriends/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.ezogaming.FriendsCraft"
+		],
+		"client": [
+			"net.ezogaming.FriendsCraftClient"
+		],
+		"fabric-datagen": [
+			"net.ezogaming.FriendsCraftDataGenerator"
+		]
+	},
+	"mixins": [
+		"kemonofriends.mixins.json",
+		{
+			"config": "kemonofriends.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
