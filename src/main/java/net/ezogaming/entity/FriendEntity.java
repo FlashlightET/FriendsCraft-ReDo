@@ -3,14 +3,17 @@ package net.ezogaming.entity;
 import java.util.Optional;
 import net.ezogaming.FriendScreenHandlerFactory;
 import net.ezogaming.FriendsCraft;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.InventoryOwner;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.MobNavigation;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -32,6 +35,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.text.Text;
 import net.minecraft.registry.Registries;
@@ -42,6 +46,7 @@ import java.util.UUID;
 
 public class FriendEntity extends PathAwareEntity implements InventoryOwner {
     private UUID OWNER;
+    private int HEAT;
 
 
 
@@ -154,6 +159,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
             nbt.putUuid("Owner", this.OWNER);
 
         }
+        nbt.putInt("Heat", this.getHeat());
     }
 
     public void setOwner(UUID owner) {
@@ -184,8 +190,24 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
             OWNER = nbt.getUuid("Owner");
         }
 
+        this.setHeat(nbt.getInt("Heat"));
+
         this.initGoals();
 
+    }
+
+
+
+    public int getHeat() {
+        return this.HEAT;
+    }
+
+    public int getMaxHeat() {
+        return 20;
+    }
+
+    public void setHeat(int health) {
+        this.HEAT = health;
     }
 
 
