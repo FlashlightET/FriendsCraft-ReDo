@@ -132,9 +132,10 @@ Friends may possibly be able to spawn on their own too?
   
   
   
-  
-  
 
+## LUCKY BEAST
+- Shows information about the friends
+- Makes japari buns
 
 ## Friend Data
 - Common Entity Tags

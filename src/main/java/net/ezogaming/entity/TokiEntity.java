@@ -17,9 +17,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import software.bernie.geckolib.core.animation.RawAnimation;
 
+import static software.bernie.geckolib.constant.DefaultAnimations.WALK;
+
 public class TokiEntity extends FriendEntity implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("flying.idle");
+    private static final RawAnimation SLOW = RawAnimation.begin().thenPlay("flying.slow");
 
 
     public TokiEntity(EntityType<? extends FriendEntity> entityType, World world) {
@@ -33,9 +36,13 @@ public class TokiEntity extends FriendEntity implements GeoEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
     }
 
+    public static <T extends GeoAnimatable> AnimationController<T> genericWalkIdleController(T animatable) {
+        return new AnimationController<T>(animatable, "Walk/Idle", 5, state -> state.setAndContinue(state.isMoving() ? SLOW : IDLE));
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(genericWalkIdleController(this));
     }
 
     @Override
