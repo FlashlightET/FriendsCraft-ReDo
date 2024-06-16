@@ -1,6 +1,7 @@
-package net.ezogaming;
+package net.ezogaming.renderer;
 
 import net.ezogaming.entity.TokiEntity;
+import net.ezogaming.model.TokiGeoModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;

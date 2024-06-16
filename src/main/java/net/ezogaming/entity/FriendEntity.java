@@ -1,6 +1,6 @@
 package net.ezogaming.entity;
 
-import net.ezogaming.FriendScreenHandlerFactory;
+import net.ezogaming.gui.FriendScreenHandlerFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.InventoryOwner;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -13,16 +13,13 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.text.Text;
 
 public class FriendEntity extends PathAwareEntity implements InventoryOwner {
-    protected static final Text NAME = Text.translatable("friend.name.generic");
+    public static final Text NAME = Text.translatable("friend.name.generic");
     //Declare the friends inventory, consisting of 15 items, a weapon, and four armor pieces.
     private final SimpleInventory inventory = new SimpleInventory(20);
 

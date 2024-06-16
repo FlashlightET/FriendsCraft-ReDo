@@ -1,10 +1,21 @@
 {
-  "item.kemonofriends.serval_spawn_egg": "Serval Spawn Egg",
-  "item.kemonofriends.caracal_spawn_egg": "Caracal Spawn Egg",
-  "item.kemonofriends.toki_spawn_egg": "Crested ibis Spawn Egg",
-  "item.kemonofriends.roadrunner_spawn_egg": "Roadrunner Spawn Egg",
-  "entity.kemonofriends.serval": "Serval",
+  "data.iucn.CR": "Critically Endangered",
+  "data.iucn.EN": "Endangered",
+  "data.iucn.EW": "Extinct in Wild",
+  "data.iucn.EX": "Extinct",
+  "data.iucn.LC": "Least Concern",
+  "data.iucn.NT": "Near Threatened",
+  "data.iucn.VU": "Vulnerable",
   "entity.kemonofriends.caracal": "Caracal",
+  "entity.kemonofriends.roadrunner": "Greater Roadrunner",
+  "entity.kemonofriends.serval": "Serval",
   "entity.kemonofriends.toki": "Crested Ibis",
-  "entity.kemonofriends.roadrunner": "Roadrunner"
+  "item.kemonofriends.caracal_spawn_egg": "Caracal Spawn Egg",
+  "item.kemonofriends.roadrunner_spawn_egg": "Greater Roadrunner Spawn Egg",
+  "item.kemonofriends.serval_spawn_egg": "Serval Spawn Egg",
+  "item.kemonofriends.toki_spawn_egg": "Crested ibis Spawn Egg",
+  "item.kemonofriends.red_japari_bun": "Red Japari Bun",
+  "item.kemonofriends.yellow_japari_bun": "Yellow Japari Bun",
+  "item.kemonofriends.blue_japari_bun": "Blue Japari Bun",
+  "item.kemonofriends.orange_japari_bun": "Orange Japari Bun"
 }

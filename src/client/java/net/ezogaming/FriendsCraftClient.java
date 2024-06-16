@@ -1,12 +1,14 @@
 package net.ezogaming;
 
 
+import net.ezogaming.gui.FriendScreen;
+import net.ezogaming.renderer.CaracalGeoRenderer;
+import net.ezogaming.renderer.RoadrunnerGeoRenderer;
+import net.ezogaming.renderer.ServalGeoRenderer;
+import net.ezogaming.renderer.TokiGeoRenderer;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
 
 public class FriendsCraftClient implements ClientModInitializer {
 	@Override

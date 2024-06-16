@@ -1,14 +1,10 @@
-package net.ezogaming;
+package net.ezogaming.renderer;
 
 import net.ezogaming.entity.ServalEntity;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.ezogaming.model.ServalGeoModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.GeodeCrackConfig;
-import software.bernie.example.entity.BatEntity;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 

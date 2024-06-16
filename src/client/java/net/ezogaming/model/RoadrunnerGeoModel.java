@@ -1,4 +1,4 @@
-package net.ezogaming;
+package net.ezogaming.model;
 
 import net.ezogaming.entity.RoadrunnerEntity;
 import net.minecraft.util.Identifier;

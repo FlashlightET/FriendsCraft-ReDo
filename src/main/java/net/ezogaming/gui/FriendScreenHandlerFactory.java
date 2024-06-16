@@ -1,4 +1,4 @@
-package net.ezogaming;
+package net.ezogaming.gui;
 
 import net.ezogaming.entity.FriendEntity;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;

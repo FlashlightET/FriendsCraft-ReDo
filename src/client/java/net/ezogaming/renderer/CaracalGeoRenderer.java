@@ -1,6 +1,7 @@
-package net.ezogaming;
+package net.ezogaming.renderer;
 
 import net.ezogaming.entity.CaracalEntity;
+import net.ezogaming.model.CaracalGeoModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;

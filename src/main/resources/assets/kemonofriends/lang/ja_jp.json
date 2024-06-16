@@ -1,10 +1,14 @@
 {
-  "item.kemonofriends.serval_spawn_egg": "サーバルのスポーンエッグ",
-  "item.kemonofriends.caracal_spawn_egg": "カラカルのスポーンエッグ",
-  "item.kemonofriends.toki_spawn_egg": "トキのスポーンエッグ",
-  "item.kemonofriends.roadrunner_spawn_egg": "Ｇ・ロードランアーのスポーンエッグ",
-  "entity.kemonofriends.serval": "サーバル",
   "entity.kemonofriends.caracal": "カラカル",
+  "entity.kemonofriends.roadrunner": "Ｇ・ロードランアー",
+  "entity.kemonofriends.serval": "サーバル",
   "entity.kemonofriends.toki": "トキ",
-  "entity.kemonofriends.roadrunner": "Ｇ・ロードランアー"
+  "item.kemonofriends.caracal_spawn_egg": "カラカルのスポーンエッグ",
+  "item.kemonofriends.roadrunner_spawn_egg": "Ｇ・ロードランアーのスポーンエッグ",
+  "item.kemonofriends.serval_spawn_egg": "サーバルのスポーンエッグ",
+  "item.kemonofriends.toki_spawn_egg": "トキのスポーンエッグ",
+  "item.kemonofriends.red_japari_bun": "赤色のジャパリまん",
+  "item.kemonofriends.yellow_japari_bun": "黄色のジャパリまん",
+  "item.kemonofriends.blue_japari_bun": "青色のジャパリまん",
+  "item.kemonofriends.orange_japari_bun": "橙色のジャパリまん"
 }
