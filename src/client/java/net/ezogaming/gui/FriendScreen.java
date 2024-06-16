@@ -1,6 +1,7 @@
 package net.ezogaming.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.ezogaming.FriendScreenHandler;
 import net.ezogaming.FriendsCraft;
 import net.ezogaming.entity.FriendEntity;
 import net.minecraft.client.gui.DrawContext;

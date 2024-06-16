@@ -1,6 +1,7 @@
 package net.ezogaming;
 
-import net.ezogaming.gui.FriendScreenHandler;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.screen.ScreenHandlerType;

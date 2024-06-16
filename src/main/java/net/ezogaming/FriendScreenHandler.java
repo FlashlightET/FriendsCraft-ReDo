@@ -1,6 +1,7 @@
-package net.ezogaming.gui;
+package net.ezogaming;
 
-import net.ezogaming.ModInventories;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
@@ -12,9 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.ezogaming.entity.FriendEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.Nullable;
