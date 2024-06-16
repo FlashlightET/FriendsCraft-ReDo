@@ -9,6 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class RoadrunnerGeoRenderer extends GeoEntityRenderer<RoadrunnerEntity> {
     public RoadrunnerGeoRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new RoadrunnerGeoModel());
+        withScale(0.9375F,0.9375F);
     }
 
     @Override

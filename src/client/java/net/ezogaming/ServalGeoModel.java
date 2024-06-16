@@ -9,6 +9,8 @@ public class ServalGeoModel extends GeoModel<ServalEntity> {
     private static final Identifier ANIM = new Identifier("kemonofriends","animations/serval.animation.json");
     private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/serval.png");
 
+
+
     @Override
     public Identifier getModelResource(ServalEntity serval) {
         return MODEL;

@@ -9,6 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class CaracalGeoRenderer extends GeoEntityRenderer<CaracalEntity> {
     public CaracalGeoRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new CaracalGeoModel());
+        withScale(0.9375F,0.9375F);
     }
 
     @Override

@@ -9,6 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class TokiGeoRenderer extends GeoEntityRenderer<TokiEntity> {
     public TokiGeoRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new TokiGeoModel());
+        withScale(0.9375F,0.9375F);
     }
 
     @Override
