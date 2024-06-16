@@ -16,6 +16,8 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +26,7 @@ public class FriendsCraft implements ModInitializer {
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger("kemonofriends");
+	public static final Marker MARKER = MarkerManager.getMarker("kemonofriends");
 
 	//Setup Entities p1
 	public static final EntityType<ServalEntity> SERVAL;
@@ -122,6 +125,13 @@ public class FriendsCraft implements ModInitializer {
 			content.add(ROADRUNNER_SPAWN_EGG);
 		});
 
+
+		Registry.register(Registries.SCREEN_HANDLER, FriendsCraft.identifier("friend_screen"), ModInventories.FRIEND);
+
 		LOGGER.info("kf mod initialized");
+	}
+
+	public static Identifier identifier(String path) {
+		return new Identifier("kemonofriends", path);
 	}
 }

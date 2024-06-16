@@ -1,0 +1,10 @@
+{
+  "item.kemonofriends.serval_spawn_egg": "サーバルのスポーンエッグ",
+  "item.kemonofriends.caracal_spawn_egg": "カラカルのスポーンエッグ",
+  "item.kemonofriends.toki_spawn_egg": "トキのスポーンエッグ",
+  "item.kemonofriends.roadrunner_spawn_egg": "Ｇ・ロードランアーのスポーンエッグ",
+  "entity.kemonofriends.serval": "サーバル",
+  "entity.kemonofriends.caracal": "カラカル",
+  "entity.kemonofriends.toki": "トキ",
+  "entity.kemonofriends.roadrunner": "Ｇ・ロードランアー"
+}

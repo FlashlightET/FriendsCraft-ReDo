@@ -1,5 +1,6 @@
 package net.ezogaming.entity;
 
+import net.ezogaming.FriendScreenHandlerFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.InventoryOwner;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -21,17 +22,17 @@ import net.minecraft.world.World;
 import net.minecraft.text.Text;
 
 public class FriendEntity extends PathAwareEntity implements InventoryOwner {
+    protected static final Text NAME = Text.translatable("friend.name.generic");
     //Declare the friends inventory, consisting of 15 items, a weapon, and four armor pieces.
     private final SimpleInventory inventory = new SimpleInventory(20);
-    private final EntityNavigation groundNavigation;
 
     public FriendEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
 
-        this.groundNavigation = new MobNavigation(this, world);
+        MobNavigation groundNavigation = new MobNavigation(this, world);
 
-        ((MobNavigation) this.groundNavigation).setCanPathThroughDoors(true);
-        ((MobNavigation) this.groundNavigation).setCanEnterOpenDoors(true);
+        groundNavigation.setCanPathThroughDoors(true);
+        groundNavigation.setCanEnterOpenDoors(true);
         this.initGoals();
     }
 
@@ -50,9 +51,11 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
         if (!this.getWorld().isClient) {
             // This code block will only execute on the server side
             // You can perform server-side actions here if needed
+            player.openHandledScreen(new FriendScreenHandlerFactory(this));
         } else {
             // This code block will execute only on the client side
             player.sendMessage(Text.of("i am a kemono friend"));
+
         }
         return ActionResult.success(this.getWorld().isClient);
     }
