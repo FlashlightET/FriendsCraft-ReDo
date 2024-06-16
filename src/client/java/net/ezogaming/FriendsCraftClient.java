@@ -2,10 +2,7 @@ package net.ezogaming;
 
 
 import net.ezogaming.gui.FriendScreen;
-import net.ezogaming.renderer.CaracalGeoRenderer;
-import net.ezogaming.renderer.RoadrunnerGeoRenderer;
-import net.ezogaming.renderer.ServalGeoRenderer;
-import net.ezogaming.renderer.TokiGeoRenderer;
+import net.ezogaming.renderer.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -18,6 +15,7 @@ public class FriendsCraftClient implements ClientModInitializer {
 		EntityRendererRegistry.register(FriendsCraft.TOKI, TokiGeoRenderer::new);
 		EntityRendererRegistry.register(FriendsCraft.CARACAL, CaracalGeoRenderer::new);
 		EntityRendererRegistry.register(FriendsCraft.ROADRUNNER, RoadrunnerGeoRenderer::new);
+		EntityRendererRegistry.register(FriendsCraft.EZO, EzoGeoRenderer::new);
 
 		HandledScreens.register(ModInventories.FRIEND, FriendScreen::new);
 	}

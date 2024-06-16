@@ -9,6 +9,12 @@ public class TokiGeoModel extends GeoModel<TokiEntity> {
     private static final Identifier ANIM = new Identifier("kemonofriends","animations/toki.animation.json");
     private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/toki.png");
 
+    private static final Identifier ANIM_WALK = new Identifier("kemonofriends","animations/generic/generic_walk.json");
+    private static final Identifier ANIM_SPRINT = new Identifier("kemonofriends","animations/generic/generic_sprint.json");
+    private static final Identifier ANIM_IDLE = new Identifier("kemonofriends","animations/generic/generic_idle.json");
+    private static final Identifier ANIM_IDLE_HAPPY = new Identifier("kemonofriends","animations/generic/generic_idle_happy.json");
+
+
     @Override
     public Identifier getModelResource(TokiEntity toki) {
         return MODEL;

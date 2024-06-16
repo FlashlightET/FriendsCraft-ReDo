@@ -79,13 +79,24 @@ public class FriendsCraft implements ModInitializer {
 		);
 	}
 
+	public static final EntityType<EzoEntity> EZO;
 
+	static {
+		EZO = Registry.register(
+				Registries.ENTITY_TYPE,
+				new Identifier("kemonofriends", "ezo"),
+				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, EzoEntity::new)
+						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.build()
+		);
+	}
 
 	// Spawn eggs
 	public static final Item SERVAL_SPAWN_EGG = new SpawnEggItem(SERVAL, 0xF5CA52, 0x7F5028, new FabricItemSettings());
 	public static final Item TOKI_SPAWN_EGG = new SpawnEggItem(TOKI, 0xFFFFFF, 0xDD5440, new FabricItemSettings());
 	public static final Item CARACAL_SPAWN_EGG = new SpawnEggItem(CARACAL, 0xEA9330, 0xFFFFFF, new FabricItemSettings());
 	public static final Item ROADRUNNER_SPAWN_EGG = new SpawnEggItem(ROADRUNNER, 0x467ECF, 0xEDDF52, new FabricItemSettings());
+	public static final Item EZO_SPAWN_EGG = new SpawnEggItem(EZO, 0xFFFFFF, 0xFFFFFF, new FabricItemSettings());
 
 
 
@@ -101,13 +112,15 @@ public class FriendsCraft implements ModInitializer {
 		LOGGER.info("kf mod initializing");
 		FabricDefaultAttributeRegistry.register(SERVAL, ServalEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(TOKI, TokiEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(CARACAL, ServalEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(ROADRUNNER, TokiEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(CARACAL, CaracalEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(ROADRUNNER, RoadrunnerEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(EZO, EzoEntity.createAttributes());
 		//eggs
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "serval_spawn_egg"), SERVAL_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "toki_spawn_egg"), TOKI_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "caracal_spawn_egg"), CARACAL_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "roadrunner_spawn_egg"), ROADRUNNER_SPAWN_EGG);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "ezo_spawn_egg"), EZO_SPAWN_EGG);
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(SERVAL_SPAWN_EGG);
@@ -123,6 +136,10 @@ public class FriendsCraft implements ModInitializer {
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(ROADRUNNER_SPAWN_EGG);
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(EZO_SPAWN_EGG);
 		});
 
 

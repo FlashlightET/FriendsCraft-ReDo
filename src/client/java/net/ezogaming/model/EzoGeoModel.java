@@ -1,13 +1,13 @@
 package net.ezogaming.model;
 
-import net.ezogaming.entity.ServalEntity;
+import net.ezogaming.entity.EzoEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;
 
-public class ServalGeoModel extends GeoModel<ServalEntity> {
-    private static final Identifier MODEL = new Identifier("kemonofriends","geo/serval.geo.json");
+public class EzoGeoModel extends GeoModel<EzoEntity> {
+    private static final Identifier MODEL = new Identifier("kemonofriends","geo/ezo.geo.json");
     private static final Identifier ANIM = new Identifier("kemonofriends","animations/serval.animation.json");
-    private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/serval.png");
+    private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/ezo.png");
 
     private static final Identifier ANIM_WALK = new Identifier("kemonofriends","animations/generic/generic_walk.json");
     private static final Identifier ANIM_SPRINT = new Identifier("kemonofriends","animations/generic/generic_sprint.json");
@@ -16,17 +16,17 @@ public class ServalGeoModel extends GeoModel<ServalEntity> {
 
 
     @Override
-    public Identifier getModelResource(ServalEntity serval) {
+    public Identifier getModelResource(EzoEntity ezo) {
         return MODEL;
     }
 
     @Override
-    public Identifier getAnimationResource(ServalEntity serval) {
+    public Identifier getAnimationResource(EzoEntity ezo) {
         return ANIM;
     }
 
     @Override
-    public Identifier getTextureResource(ServalEntity serval) {
+    public Identifier getTextureResource(EzoEntity ezo) {
         return TEX;
     }
 }
