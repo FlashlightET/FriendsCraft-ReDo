@@ -14,6 +14,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
@@ -71,6 +74,35 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
         navigation.setCanEnterOpenDoors(true);
 
         return navigation;
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        NbtList inventoryNbt = new NbtList();
+        for (int i = 0; i < this.inventory.size(); i++) {
+            ItemStack itemStack = this.inventory.getStack(i);
+
+            if (!itemStack.isEmpty()) {
+                NbtCompound nbtCompound = new NbtCompound();
+                nbtCompound.putInt("Slot", i);
+                itemStack.writeNbt(nbtCompound);
+                inventoryNbt.add(nbtCompound);
+            }
+        }
+        nbt.put("Inventory", inventoryNbt);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+
+        NbtList inventoryNbt = nbt.getList("Inventory", NbtElement.COMPOUND_TYPE);
+        for (int i = 0; i < inventoryNbt.size(); i++) {
+            NbtCompound nbtCompound = inventoryNbt.getCompound(i);
+            this.inventory.setStack(nbtCompound.getInt("Slot"), ItemStack.fromNbt(nbtCompound));
+        }
+
     }
 
 }
