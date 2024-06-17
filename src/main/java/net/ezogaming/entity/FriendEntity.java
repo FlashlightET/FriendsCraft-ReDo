@@ -98,7 +98,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
     protected void initGoals() {
         if (!this.isTamed()) { //Untamed goals
-            this.goalSelector.add(1, new SwimGoal(this));
+            this.goalSelector.add(1, new FriendTemptGoal(this,1.0,false));
             this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
             this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
             this.goalSelector.add(4, new LookAroundGoal(this));
@@ -115,26 +115,6 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     public boolean isTamableItem(ItemStack stack) {
         return stack.isIn(FRIEND_TAMABLE_ITEMS);
     }
-
-//    @Override
-//    public void tick() {
-//        super.tick();
-//
-//        // Check if the entity is moving
-//        if (!this.getWorld().isClient) { // Ensure you're on the server side
-//            boolean isMoving = isMoving();
-//            // Do something based on whether it's moving or not
-//            if (isMoving) {
-//                this.currentPose=FRIEND_POSE_WALK;
-//            } else {
-//                this.currentPose=FRIEND_POSE_IDLE;
-//            }
-//        }
-    //}
-
-//    private boolean isMoving() {
-//        return this.prevX != this.getX() || this.prevY != this.getY() || this.prevZ != this.getZ();
-//    }
 
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -271,7 +251,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "move.walk", 5, this::Anim));
         controllers.add(new AnimationController<>(this, "misc.idle", 5, this::Anim));
-        controllers.add(new AnimationController<>(this, "move.sprint", 5, this::Anim));
+        controllers.add(new AnimationController<>(this, "move.sprint", 15, this::Anim));
         controllers.add(new AnimationController<>(this, "beg", 5, this::Anim));
 
 
@@ -302,7 +282,12 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
                 }
             }
         } else {
-            event.getController().setAnimation(IDLE);
+            if(doesPlayerHasJapariBun()){
+                event.getController().setAnimation(BEG);
+            } else {
+                event.getController().setAnimation(IDLE);
+            }
+
         }
 
         return PlayState.CONTINUE;
@@ -316,6 +301,15 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         return true;
     }
 
+    private boolean doesPlayerHasJapariBun() {
+        for (PlayerEntity player : this.getWorld().getEntitiesByClass(PlayerEntity.class, this.getBoundingBox().expand(4), player -> true)) {
+            ItemStack item = player.getMainHandStack();
+            if (isTamableItem(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
