@@ -269,7 +269,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         double deltaZ = currentZ - this.prevZ;
 
         double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-
+        //hi
         if (event.isMoving()) {
             //FriendsCraft.LOGGER.info(String.valueOf(speed));
             if(speed <= 0.2F) {
