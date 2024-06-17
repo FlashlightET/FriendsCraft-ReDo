@@ -95,6 +95,31 @@ public class FriendsCraft implements ModInitializer {
 						.build()
 		);
 	}
+
+	public static final EntityType<SilverEntity> SILVER;
+
+	static {
+		SILVER = Registry.register(
+				Registries.ENTITY_TYPE,
+				new Identifier("kemonofriends", "silver_fox"),
+				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SilverEntity::new)
+						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.build()
+		);
+	}
+
+	public static final EntityType<AkaEntity> RED_FOX;
+
+	static {
+		RED_FOX = Registry.register(
+				Registries.ENTITY_TYPE,
+				new Identifier("kemonofriends", "red_fox"),
+				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AkaEntity::new)
+						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.build()
+		);
+	}
+
 	// Items
 
 	// Japari buns
@@ -109,6 +134,8 @@ public class FriendsCraft implements ModInitializer {
 	public static final Item CARACAL_SPAWN_EGG = new SpawnEggItem(CARACAL, 0xEA9330, 0xFFFFFF, new FabricItemSettings());
 	public static final Item ROADRUNNER_SPAWN_EGG = new SpawnEggItem(ROADRUNNER, 0x467ECF, 0xEDDF52, new FabricItemSettings());
 	public static final Item EZO_SPAWN_EGG = new SpawnEggItem(EZO, 0xFFFFFF, 0xFFFFFF, new FabricItemSettings());
+	public static final Item SILVER_SPAWN_EGG = new SpawnEggItem(SILVER, 0xFFFFFF, 0xFFFFFF, new FabricItemSettings());
+	public static final Item RED_FOX_SPAWN_EGG = new SpawnEggItem(RED_FOX, 0xFFFFFF, 0xFFFFFF, new FabricItemSettings());
 
 
 
@@ -127,6 +154,8 @@ public class FriendsCraft implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(CARACAL, CaracalEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(ROADRUNNER, RoadrunnerEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(EZO, EzoEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(SILVER, SilverEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(RED_FOX, AkaEntity.createAttributes());
 		//japaribuns
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "red_japari_bun"), RED_JAPARI_BUN);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "yellow_japari_bun"), YELLOW_JAPARI_BUN);
@@ -152,6 +181,8 @@ public class FriendsCraft implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "caracal_spawn_egg"), CARACAL_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "roadrunner_spawn_egg"), ROADRUNNER_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "ezo_spawn_egg"), EZO_SPAWN_EGG);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "silver_fox_spawn_egg"), SILVER_SPAWN_EGG);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "red_fox_spawn_egg"), RED_FOX_SPAWN_EGG);
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(SERVAL_SPAWN_EGG);
@@ -171,6 +202,14 @@ public class FriendsCraft implements ModInitializer {
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(EZO_SPAWN_EGG);
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(SILVER_SPAWN_EGG);
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(RED_FOX_SPAWN_EGG);
 		});
 
 

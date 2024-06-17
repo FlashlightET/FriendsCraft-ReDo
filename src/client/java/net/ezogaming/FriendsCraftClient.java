@@ -16,6 +16,8 @@ public class FriendsCraftClient implements ClientModInitializer {
 		EntityRendererRegistry.register(FriendsCraft.CARACAL, CaracalGeoRenderer::new);
 		EntityRendererRegistry.register(FriendsCraft.ROADRUNNER, RoadrunnerGeoRenderer::new);
 		EntityRendererRegistry.register(FriendsCraft.EZO, EzoGeoRenderer::new);
+		EntityRendererRegistry.register(FriendsCraft.SILVER, SilverGeoRenderer::new);
+		EntityRendererRegistry.register(FriendsCraft.RED_FOX, AkaGeoRenderer::new);
 
 		HandledScreens.register(ModInventories.FRIEND, FriendScreen::new);
 	}

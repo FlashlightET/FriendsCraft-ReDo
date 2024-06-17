@@ -44,8 +44,9 @@
   "entity.kemonofriends.raccoon": "Raccoon",
   "entity.kemonofriends.red_fox": "Red Fox",
   "entity.kemonofriends.scarlet_ibis": "Scarlet Ibis",
-  "entity.kemonofriends.silver": "Silver Fox",
+  "entity.kemonofriends.silver_fox": "Silver Fox",
   "entity.kemonofriends.western_parotia": "Western Parotia",
+  "entity.kemonofriends.tanuki": "Raccoon Dog",
   "item.kemonofriends.african_penguin_spawn_egg": "African Penguin Spawn Egg",
   "item.kemonofriends.alpaca_spawn_egg": "Alpaca Suri Spawn Egg",
   "item.kemonofriends.arctic_fox_spawn_egg": "Arctic Fox Spawn Egg",
@@ -72,6 +73,7 @@
   "item.kemonofriends.raccoon_spawn_egg": "Raccoon Spawn Egg",
   "item.kemonofriends.red_fox_spawn_egg": "Red Fox Spawn Egg",
   "item.kemonofriends.scarlet_ibis_spawn_egg": "Scarlet Ibis Spawn Egg",
-  "item.kemonofriends.silver_spawn_egg": "Silver Fox Spawn Egg",
-  "item.kemonofriends.western_parotia_spawn_egg": "Western Parotia Spawn Egg"
+  "item.kemonofriends.silver_fox_spawn_egg": "Silver Fox Spawn Egg",
+  "item.kemonofriends.western_parotia_spawn_egg": "Western Parotia Spawn Egg",
+  "item.kemonofriends.tanuki_spawn_egg": "Raccoon Dog Spawn Egg"
 }
