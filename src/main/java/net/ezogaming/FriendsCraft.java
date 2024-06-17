@@ -133,7 +133,6 @@ public class FriendsCraft implements ModInitializer {
 	public static final Item TOKI_SPAWN_EGG = new SpawnEggItem(TOKI, 0xFFFFFF, 0xDD5440, new FabricItemSettings());
 	public static final Item CARACAL_SPAWN_EGG = new SpawnEggItem(CARACAL, 0xEA9330, 0xFFFFFF, new FabricItemSettings());
 	public static final Item ROADRUNNER_SPAWN_EGG = new SpawnEggItem(ROADRUNNER, 0x467ECF, 0xEDDF52, new FabricItemSettings());
-
 	public static final Item EZO_SPAWN_EGG = new SpawnEggItem(EZO, 0xE57C40, 0xFFFFFF, new FabricItemSettings());
 	public static final Item SILVER_SPAWN_EGG = new SpawnEggItem(SILVER, 0x485DAF, 0x292F35, new FabricItemSettings());
 	public static final Item RED_FOX_SPAWN_EGG = new SpawnEggItem(RED_FOX, 0xFFFFFF, 0xF08757, new FabricItemSettings());

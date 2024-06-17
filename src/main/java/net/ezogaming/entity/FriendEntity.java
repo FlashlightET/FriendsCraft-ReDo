@@ -50,6 +50,7 @@ import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
@@ -64,12 +65,9 @@ import static software.bernie.geckolib.constant.DefaultAnimations.WALK;
 public class FriendEntity extends PathAwareEntity implements InventoryOwner, GeoEntity {
     private UUID OWNER;
     private int HEAT;
-    private final int FRIEND_POSE_IDLE=0;
-    private final int FRIEND_POSE_WALK=1;
-    private final int FRIEND_POSE_SPRINT=2;
-    private final int FRIEND_POSE_BEG=3;
+    private boolean BEGGING=false;
 
-    private int currentPose=FRIEND_POSE_IDLE;
+    //private int currentPose=FRIEND_POSE_IDLE;
 
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -118,30 +116,30 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         return stack.isIn(FRIEND_TAMABLE_ITEMS);
     }
 
-    @Override
-    public void tick() {
-        super.tick();
+//    @Override
+//    public void tick() {
+//        super.tick();
+//
+//        // Check if the entity is moving
+//        if (!this.getWorld().isClient) { // Ensure you're on the server side
+//            boolean isMoving = isMoving();
+//            // Do something based on whether it's moving or not
+//            if (isMoving) {
+//                this.currentPose=FRIEND_POSE_WALK;
+//            } else {
+//                this.currentPose=FRIEND_POSE_IDLE;
+//            }
+//        }
+    //}
 
-        // Check if the entity is moving
-        if (!this.getWorld().isClient) { // Ensure you're on the server side
-            boolean isMoving = isMoving();
-            // Do something based on whether it's moving or not
-            if (isMoving) {
-                this.currentPose=FRIEND_POSE_WALK;
-            } else {
-                this.currentPose=FRIEND_POSE_IDLE;
-            }
-        }
-    }
-
-    private boolean isMoving() {
-        return this.prevX != this.getX() || this.prevY != this.getY() || this.prevZ != this.getZ();
-    }
+//    private boolean isMoving() {
+//        return this.prevX != this.getX() || this.prevY != this.getY() || this.prevZ != this.getZ();
+//    }
 
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         //AnimationController.setAnimation
-        this.currentPose=FRIEND_POSE_BEG;
+        //this.currentPose=FRIEND_POSE_BEG;
 
         ItemStack itemStack = player.getStackInHand(hand);
         // Check if it's the client side
@@ -149,6 +147,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
             if (this.isTamed()) {
                 player.openHandledScreen(new FriendScreenHandlerFactory(this));
             } else { // tame the friend if applicable
+                this.BEGGING=true;
                 if (isTamableItem(itemStack)) {
                     // eat the food
                     ItemStack food = (player.getAbilities().creativeMode ? itemStack.copy() : itemStack).split(1);
@@ -269,26 +268,54 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "idle/walk/sprint", 5, state -> {
-            if (state.isMoving()) {
-                state.getController().setAnimation(WALK);
-            } else {
-                switch (currentPose) {
-                    case FRIEND_POSE_IDLE: //Idle
-                        state.getController().setAnimation(IDLE);
-                    case FRIEND_POSE_WALK: //Walk
-                        state.getController().setAnimation(WALK);
-                    case FRIEND_POSE_SPRINT: //Sprint
-                        state.getController().setAnimation(SPRINT);
-                    case FRIEND_POSE_BEG: //Sprint
-                        state.getController().setAnimation(BEG);
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "move.walk", 5, this::Anim));
+        controllers.add(new AnimationController<>(this, "misc.idle", 5, this::Anim));
+        controllers.add(new AnimationController<>(this, "move.sprint", 5, this::Anim));
+        controllers.add(new AnimationController<>(this, "beg", 5, this::Anim));
+
+
+    }
+
+
+    protected <E extends FriendEntity> PlayState Anim(final AnimationState<E> event) {
+
+        double currentX = this.getX();
+        double currentY = this.getY();
+        double currentZ = this.getZ();
+
+        double deltaX = currentX - this.prevX;
+        double deltaY = currentY - this.prevY;
+        double deltaZ = currentZ - this.prevZ;
+
+        double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+
+        if (event.isMoving()) {
+            //FriendsCraft.LOGGER.info(String.valueOf(speed));
+            if(speed <= 0.2F) {
+                if(canPlayWalkAnim()){
+                    event.getController().setAnimation(WALK);
+                }
+            }else {
+                if(canPlayRunAnim()){
+                    event.getController().setAnimation(SPRINT);
                 }
             }
+        } else {
+            event.getController().setAnimation(IDLE);
+        }
 
-            return PlayState.CONTINUE;
-        }));
+        return PlayState.CONTINUE;
     }
+
+    private boolean canPlayRunAnim() {
+        return true;
+    }
+
+    private boolean canPlayWalkAnim() {
+        return true;
+    }
+
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
