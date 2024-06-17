@@ -6,9 +6,7 @@ import java.util.Optional;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.ezogaming.FriendScreenHandlerFactory;
-import net.ezogaming.FriendTemptGoal;
-import net.ezogaming.FriendsCraft;
+import net.ezogaming.*;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.InventoryOwner;
@@ -20,7 +18,10 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.mob.*;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
@@ -45,6 +46,7 @@ import net.minecraft.world.World;
 import net.minecraft.text.Text;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -77,6 +79,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     public static final Text NAME = Text.translatable("friend.name.generic");
     //Declare the friends inventory, consisting of 15 items, a weapon, and four armor pieces.
     private final SimpleInventory inventory = new SimpleInventory(20);
+    private UUID angryAt;
 
     public FriendEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -98,13 +101,18 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     public static final RawAnimation EAT = RawAnimation.begin().thenLoop("eat");
 
     protected void initGoals() {
+        this.targetSelector.add(7, new ActiveTargetGoal(this, HostileEntity.class, false));
+        this.goalSelector.add(3, new MeleeAttackGoal(this,1.5, false));
+        this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.add(4, new LookAroundGoal(this));
+
         if (!this.isTamed()) { //Untamed goals
             this.goalSelector.add(1, new FriendTemptGoal(this,1.0,false));
-            this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
-            this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-            this.goalSelector.add(4, new LookAroundGoal(this));
         } else {
             //Tamed Goals
+            this.targetSelector.add(1, new TrackOwnerAttackerGoalFriend(this));
+            this.targetSelector.add(2, new AttackWithOwnerGoalFriend(this));
 
         }
 
@@ -134,6 +142,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
                     ItemStack food = (player.getAbilities().creativeMode ? itemStack.copy() : itemStack).split(1);
                     this.setOwnerFromPlayer(player);
                     this.goalSelector.getGoals().clear();
+                    this.targetSelector.getGoals().clear();
                     this.spawnParticles();
                     initGoals(); // re-initialize goals for tamed friend
                 }
@@ -211,6 +220,8 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         this.setOwner(owner.getUuid());
     }
 
+
+
     public UUID getOwner() {
         return this.OWNER;
     }
@@ -231,6 +242,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
         this.setHeat(nbt.getInt("Heat"));
         this.goalSelector.getGoals().clear();
+        this.targetSelector.getGoals().clear();
         this.initGoals();
 
     }
@@ -304,6 +316,15 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         return true;
     }
 
+    @Nullable
+    public UUID getAngryAt() {
+        return this.angryAt;
+    }
+
+    public void setAngryAt(@Nullable UUID angryAt) {
+        this.angryAt = angryAt;
+    }
+
     private boolean doesPlayerHasJapariBun() {
         for (PlayerEntity player : this.getWorld().getEntitiesByClass(PlayerEntity.class, this.getBoundingBox().expand(4), player -> true)) {
             ItemStack item = player.getMainHandStack();
@@ -320,5 +341,21 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     }
 
 
+    public boolean isSitting() {
+        return true;
+    }
 
+    public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
+        if (!(target instanceof CreeperEntity) && !(target instanceof GhastEntity)) {
+            if (target instanceof PlayerEntity && owner instanceof PlayerEntity && !((PlayerEntity)owner).shouldDamagePlayer((PlayerEntity)target)) {
+                return false;
+            } else if (target instanceof AbstractHorseEntity && ((AbstractHorseEntity)target).isTame()) {
+                return false;
+            } else {
+                return !(target instanceof TameableEntity) || !((TameableEntity)target).isTamed();
+            }
+        } else {
+            return false;
+        }
+    }
 }
