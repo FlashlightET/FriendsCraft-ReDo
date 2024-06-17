@@ -14,10 +14,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class CaracalEntity extends FriendEntity implements GeoEntity {
-    //public static final Text NAME = Text.translatable("friend.name.caracal");
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-
 
     public CaracalEntity(EntityType<? extends FriendEntity> entityType, World world) {
         super(entityType, world);
@@ -28,16 +24,6 @@ public class CaracalEntity extends FriendEntity implements GeoEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController(this));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
     }
 
 

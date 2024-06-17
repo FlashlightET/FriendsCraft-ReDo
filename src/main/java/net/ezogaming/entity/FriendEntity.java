@@ -1,16 +1,19 @@
 package net.ezogaming.entity;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Optional;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.ezogaming.FriendScreenHandlerFactory;
+import net.ezogaming.FriendTemptGoal;
 import net.ezogaming.FriendsCraft;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.InventoryOwner;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -21,6 +24,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -28,6 +32,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
@@ -40,13 +45,34 @@ import net.minecraft.world.World;
 import net.minecraft.text.Text;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 
 import java.util.UUID;
 
-public class FriendEntity extends PathAwareEntity implements InventoryOwner {
+import static net.ezogaming.FriendsCraft.*;
+//import static software.bernie.geckolib.constant.DefaultAnimations.IDLE;
+import static software.bernie.geckolib.constant.DefaultAnimations.WALK;
+
+public class FriendEntity extends PathAwareEntity implements InventoryOwner, GeoEntity {
     private UUID OWNER;
     private int HEAT;
+    private final int FRIEND_POSE_IDLE=0;
+    private final int FRIEND_POSE_WALK=1;
+    private final int FRIEND_POSE_SPRINT=2;
+    private final int FRIEND_POSE_BEG=3;
+
+    private int currentPose=FRIEND_POSE_IDLE;
+
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
 
 
@@ -63,6 +89,14 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
         groundNavigation.setCanEnterOpenDoors(true);
 
     }
+
+
+
+
+    public static final RawAnimation WALK = RawAnimation.begin().thenLoop("move.walk");
+    public static final RawAnimation IDLE = RawAnimation.begin().thenLoop("misc.idle");
+    public static final RawAnimation BEG = RawAnimation.begin().thenPlay("beg");
+    public static final RawAnimation SPRINT = RawAnimation.begin().thenLoop("move.sprint");
 
     protected void initGoals() {
         if (!this.isTamed()) { //Untamed goals
@@ -84,7 +118,31 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
         return stack.isIn(FRIEND_TAMABLE_ITEMS);
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+
+        // Check if the entity is moving
+        if (!this.getWorld().isClient) { // Ensure you're on the server side
+            boolean isMoving = isMoving();
+            // Do something based on whether it's moving or not
+            if (isMoving) {
+                this.currentPose=FRIEND_POSE_WALK;
+            } else {
+                this.currentPose=FRIEND_POSE_IDLE;
+            }
+        }
+    }
+
+    private boolean isMoving() {
+        return this.prevX != this.getX() || this.prevY != this.getY() || this.prevZ != this.getZ();
+    }
+
+
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        //AnimationController.setAnimation
+        this.currentPose=FRIEND_POSE_BEG;
+
         ItemStack itemStack = player.getStackInHand(hand);
         // Check if it's the client side
         if (!this.getWorld().isClient) {
@@ -208,6 +266,33 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner {
 
     public void setHeat(int health) {
         this.HEAT = health;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "idle/walk/sprint", 5, state -> {
+            if (state.isMoving()) {
+                state.getController().setAnimation(WALK);
+            } else {
+                switch (currentPose) {
+                    case FRIEND_POSE_IDLE: //Idle
+                        state.getController().setAnimation(IDLE);
+                    case FRIEND_POSE_WALK: //Walk
+                        state.getController().setAnimation(WALK);
+                    case FRIEND_POSE_SPRINT: //Sprint
+                        state.getController().setAnimation(SPRINT);
+                    case FRIEND_POSE_BEG: //Sprint
+                        state.getController().setAnimation(BEG);
+                }
+            }
+
+            return PlayState.CONTINUE;
+        }));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
 

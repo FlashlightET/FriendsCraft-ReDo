@@ -18,9 +18,6 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.core.animation.RawAnimation;
 
 public class EzoEntity extends FriendEntity implements GeoEntity {
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-
 
     public EzoEntity(EntityType<? extends FriendEntity> entityType, World world) {
         super(entityType, world);
@@ -33,15 +30,7 @@ public class EzoEntity extends FriendEntity implements GeoEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController(this));
-    }
 
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
 
 
 }

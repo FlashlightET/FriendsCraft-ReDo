@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
-    "minecraft:wheat",
-    "minecraft:carrot"
+    "kemonofriends:red_japari_bun",
+    "kemonofriends:orange_japari_bun",
+    "kemonofriends:yellow_japari_bun",
+    "kemonofriends:blue_japari_bun"
   ]
 }
