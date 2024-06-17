@@ -37,8 +37,9 @@
   "entity.kemonofriends.raccoon": "アライグマ",
   "entity.kemonofriends.red_fox": "アカギツネ",
   "entity.kemonofriends.scarlet_ibis": "ショウジョウトキ",
-  "entity.kemonofriends.silver": "ギンギツネ",
+  "entity.kemonofriends.silver_fox": "ギンギツネ",
   "entity.kemonofriends.western_parotia": "カンザシフウチョウ",
+  "entity.kemonofriends.tanuki": "タヌキ",
   "item.kemonofriends.african_penguin_spawn_egg": "ケープペンギンのスポーンエッグ",
   "item.kemonofriends.alpaca_spawn_egg": "アルパカ・スリのスポーンエッグ",
   "item.kemonofriends.arctic_fox_spawn_egg": "ホッキョクギツネのスポーンエッグ",
@@ -65,6 +66,7 @@
   "item.kemonofriends.raccoon_spawn_egg": "アライグマのスポーンエッグ",
   "item.kemonofriends.red_fox_spawn_egg": "アカギツネのスポーンエッグ",
   "item.kemonofriends.scarlet_ibis_spawn_egg": "ショウジョウトキのスポーンエッグ",
-  "item.kemonofriends.silver_spawn_egg": "ギンギツネのスポーンエッグ",
-  "item.kemonofriends.western_parotia_spawn_egg": "カンザシフウチョウのスポーンエッグ"
+  "item.kemonofriends.silver_fox_spawn_egg": "ギンギツネのスポーンエッグ",
+  "item.kemonofriends.western_parotia_spawn_egg": "カンザシフウチョウのスポーンエッグ",
+  "item.kemonofriends.tanuki_spawn_egg": "タヌキのスポーンエッグ"
 }
