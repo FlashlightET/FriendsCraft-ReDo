@@ -95,6 +95,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     public static final RawAnimation IDLE = RawAnimation.begin().thenLoop("misc.idle");
     public static final RawAnimation BEG = RawAnimation.begin().thenPlay("beg");
     public static final RawAnimation SPRINT = RawAnimation.begin().thenLoop("move.sprint");
+    public static final RawAnimation EAT = RawAnimation.begin().thenLoop("eat");
 
     protected void initGoals() {
         if (!this.isTamed()) { //Untamed goals
@@ -132,6 +133,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
                     // eat the food
                     ItemStack food = (player.getAbilities().creativeMode ? itemStack.copy() : itemStack).split(1);
                     this.setOwnerFromPlayer(player);
+                    this.goalSelector.getGoals().clear();
                     this.spawnParticles();
                     initGoals(); // re-initialize goals for tamed friend
                 }
@@ -228,7 +230,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         }
 
         this.setHeat(nbt.getInt("Heat"));
-
+        this.goalSelector.getGoals().clear();
         this.initGoals();
 
     }
@@ -253,6 +255,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         controllers.add(new AnimationController<>(this, "misc.idle", 5, this::Anim));
         controllers.add(new AnimationController<>(this, "move.sprint", 15, this::Anim));
         controllers.add(new AnimationController<>(this, "beg", 5, this::Anim));
+        controllers.add(new AnimationController<>(this, "eat", 5, this::Anim));
 
 
     }
