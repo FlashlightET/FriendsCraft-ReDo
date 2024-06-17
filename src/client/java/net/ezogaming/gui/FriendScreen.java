@@ -50,7 +50,7 @@ public class FriendScreen extends HandledScreen<FriendScreenHandler> {
         Inventory friendInventory = friend.getInventory();
         int inventorySize = friendInventory.size();
 
-        InventoryScreen.drawEntity(context, centerX + 151, centerY + 64, 23, centerX + 151 - mouseX, centerY + 25 - mouseY, friend);
+        InventoryScreen.drawEntity(context, centerX + 151, centerY + 63, 23, centerX + 151 - mouseX, centerY + 25 - mouseY, friend);
         this.renderFriendHealth(context,(int)friend.getHealth(),(int)friend.getMaxHealth(), centerX, centerY);
         //FriendsCraft.LOGGER.info(String.valueOf(friend.getHealth()));
         //FriendsCraft.LOGGER.info(String.valueOf(friend.getMaxHealth()));

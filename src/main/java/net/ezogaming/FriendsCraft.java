@@ -28,8 +28,13 @@ public class FriendsCraft implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("kemonofriends");
 	public static final Marker MARKER = MarkerManager.getMarker("kemonofriends");
 
+
+
+
 	//Setup Entities p1
 	public static final EntityType<ServalEntity> SERVAL;
+
+
 
 
 	//Setup Entities p2
@@ -90,6 +95,13 @@ public class FriendsCraft implements ModInitializer {
 						.build()
 		);
 	}
+	// Items
+
+	// Japari buns
+	public static final Item RED_JAPARI_BUN = new Item(new FabricItemSettings());
+	public static final Item YELLOW_JAPARI_BUN = new Item(new FabricItemSettings());
+	public static final Item BLUE_JAPARI_BUN = new Item(new FabricItemSettings());
+	public static final Item ORANGE_JAPARI_BUN = new Item(new FabricItemSettings());
 
 	// Spawn eggs
 	public static final Item SERVAL_SPAWN_EGG = new SpawnEggItem(SERVAL, 0xF5CA52, 0x7F5028, new FabricItemSettings());
@@ -115,6 +127,25 @@ public class FriendsCraft implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(CARACAL, CaracalEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(ROADRUNNER, RoadrunnerEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(EZO, EzoEntity.createAttributes());
+		//japaribuns
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "red_japari_bun"), RED_JAPARI_BUN);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "yellow_japari_bun"), YELLOW_JAPARI_BUN);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "blue_japari_bun"), BLUE_JAPARI_BUN);
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "orange_japari_bun"), ORANGE_JAPARI_BUN);
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {
+			content.add(RED_JAPARI_BUN);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {
+			content.add(YELLOW_JAPARI_BUN);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {
+			content.add(BLUE_JAPARI_BUN);
+		});
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {
+			content.add(ORANGE_JAPARI_BUN);
+		});
+
+
 		//eggs
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "serval_spawn_egg"), SERVAL_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "toki_spawn_egg"), TOKI_SPAWN_EGG);

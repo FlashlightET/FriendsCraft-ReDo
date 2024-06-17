@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "kemonofriends:item/orange_japari_bun"
+  }
+}
