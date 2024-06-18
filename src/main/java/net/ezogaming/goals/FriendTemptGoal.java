@@ -3,17 +3,15 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.ezogaming;
+package net.ezogaming.goals;
 
 import java.util.EnumSet;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.Goal.Control;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
 import static net.ezogaming.entity.FriendEntity.FRIEND_TAMABLE_ITEMS;

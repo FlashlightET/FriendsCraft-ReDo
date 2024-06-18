@@ -1,6 +1,9 @@
 package net.ezogaming.entity;
 
 import net.ezogaming.*;
+import net.ezogaming.goals.AttackWithOwnerGoalFriend;
+import net.ezogaming.goals.FriendTemptGoal;
+import net.ezogaming.goals.TrackOwnerAttackerGoalFriend;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -79,16 +82,22 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     public static final RawAnimation EAT = RawAnimation.begin().thenLoop("eat");
 
     protected void initGoals() {
-        this.targetSelector.add(7, new ActiveTargetGoal(this, HostileEntity.class, false));
-        this.goalSelector.add(3, new MeleeAttackGoal(this,1.5, false));
-        this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(4, new LookAroundGoal(this));
+
 
         if (!this.isTamed()) { //Untamed goals
+            this.targetSelector.add(7, new ActiveTargetGoal(this, Monster.class, false));
+            this.goalSelector.add(3, new MeleeAttackGoal(this,1.5, false));
+            this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
+            this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
+            this.goalSelector.add(4, new LookAroundGoal(this));
             this.goalSelector.add(1, new FriendTemptGoal(this,1.0,false));
         } else {
             //Tamed Goals
+            this.targetSelector.add(7, new ActiveTargetGoal(this, Monster.class, false));
+            this.goalSelector.add(3, new MeleeAttackGoal(this,1.5, false));
+            this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
+            this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
+            this.goalSelector.add(4, new LookAroundGoal(this));
             this.targetSelector.add(1, new TrackOwnerAttackerGoalFriend(this));
             this.targetSelector.add(2, new AttackWithOwnerGoalFriend(this));
 

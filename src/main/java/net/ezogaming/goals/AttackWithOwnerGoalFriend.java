@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package net.ezogaming;
+package net.ezogaming.goals;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -12,17 +12,15 @@ import net.ezogaming.entity.FriendEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal.Control;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.server.world.ServerWorld;
 
-public class TrackOwnerAttackerGoalFriend extends TrackTargetGoal {
+public class AttackWithOwnerGoalFriend extends TrackTargetGoal {
     private final FriendEntity tameable;
-    private LivingEntity attacker;
-    private int lastAttackedTime;
+    private LivingEntity attacking;
+    private int lastAttackTime;
 
-    public TrackOwnerAttackerGoalFriend(FriendEntity tameable) {
+    public AttackWithOwnerGoalFriend(FriendEntity tameable) {
         super(tameable, false);
         this.tameable = tameable;
         this.setControls(EnumSet.of(Control.TARGET));
@@ -46,9 +44,9 @@ public class TrackOwnerAttackerGoalFriend extends TrackTargetGoal {
             if (livingEntity == null) {
                 return false;
             } else {
-                this.attacker = livingEntity.getAttacker();
-                int i = livingEntity.getLastAttackedTime();
-                return i != this.lastAttackedTime && this.canTrack(this.attacker, TargetPredicate.DEFAULT) && this.tameable.canAttackWithOwner(this.attacker, livingEntity);
+                this.attacking = livingEntity.getAttacking();
+                int i = livingEntity.getLastAttackTime();
+                return i != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT) && this.tameable.canAttackWithOwner(this.attacking, livingEntity);
             }
         } else {
             return false;
@@ -56,10 +54,10 @@ public class TrackOwnerAttackerGoalFriend extends TrackTargetGoal {
     }
 
     public void start() {
-        this.mob.setTarget(this.attacker);
+        this.mob.setTarget(this.attacking);
         LivingEntity livingEntity = getLivingEntityFromUUID((ServerWorld) this.tameable.getWorld(), this.tameable.getOwner());
         if (livingEntity != null) {
-            this.lastAttackedTime = livingEntity.getLastAttackedTime();
+            this.lastAttackTime = livingEntity.getLastAttackTime();
         }
 
         super.start();
