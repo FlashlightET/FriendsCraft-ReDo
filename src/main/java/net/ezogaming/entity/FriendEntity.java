@@ -1,54 +1,31 @@
 package net.ezogaming.entity;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Optional;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.ezogaming.*;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.InventoryOwner;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.text.Text;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -57,17 +34,18 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-
 import java.util.UUID;
 
-import static net.ezogaming.FriendsCraft.*;
-//import static software.bernie.geckolib.constant.DefaultAnimations.IDLE;
-import static software.bernie.geckolib.constant.DefaultAnimations.WALK;
 
 public class FriendEntity extends PathAwareEntity implements InventoryOwner, GeoEntity {
+    private boolean IS_EATING;
     private UUID OWNER;
     private int HEAT;
+    private int LEVEL;
+    private int XP;
     private boolean BEGGING=false;
+
+
 
     //private int currentPose=FRIEND_POSE_IDLE;
 
@@ -76,7 +54,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
 
 
-    public static final Text NAME = Text.translatable("friend.name.generic");
+    //public static final Text NAME = Text.translatable("friend.name.generic");
     //Declare the friends inventory, consisting of 15 items, a weapon, and four armor pieces.
     private final SimpleInventory inventory = new SimpleInventory(20);
     private UUID angryAt;
@@ -118,6 +96,8 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
     }
 
+
+
     public static final TagKey<Item> FRIEND_TAMABLE_ITEMS =
             TagKey.of(Registries.ITEM.getKey(), new Identifier("kemonofriends", "friend_tamable_items"));
 
@@ -131,20 +111,32 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         //this.currentPose=FRIEND_POSE_BEG;
 
         ItemStack itemStack = player.getStackInHand(hand);
+        Item item = itemStack.getItem();
         // Check if it's the client side
         if (!this.getWorld().isClient) {
             if (this.isTamed()) {
-                player.openHandledScreen(new FriendScreenHandlerFactory(this));
+                if (item.isFood() && this.getHealth() < this.getMaxHealth()) {
+                    if (!player.getAbilities().creativeMode) {
+                        itemStack.decrement(1);
+                    }
+
+                    this.heal((float)item.getFoodComponent().getHunger());
+                    this.setEating(true);
+                    return ActionResult.SUCCESS;
+                } else {
+                    player.openHandledScreen(new FriendScreenHandlerFactory(this));
+                }
             } else { // tame the friend if applicable
                 this.BEGGING=true;
                 if (isTamableItem(itemStack)) {
                     // eat the food
-                    ItemStack food = (player.getAbilities().creativeMode ? itemStack.copy() : itemStack).split(1);
+                    //ItemStack food = (player.getAbilities().creativeMode ? itemStack.copy() : itemStack).split(1);
                     this.setOwnerFromPlayer(player);
                     this.goalSelector.getGoals().clear();
                     this.targetSelector.getGoals().clear();
                     this.spawnParticles();
                     initGoals(); // re-initialize goals for tamed friend
+                    return ActionResult.success(this.getWorld().isClient);
                 }
             }
             // This code block will only execute on the server side
@@ -152,10 +144,16 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
         } else {
             // This code block will execute only on the client side
-
-
+            return ActionResult.success(this.getWorld().isClient);
         }
+
+
+
         return ActionResult.success(this.getWorld().isClient);
+    }
+
+    private boolean isFood(ItemStack itemStack) {
+        return true;
     }
 
     private void spawnParticles() {
@@ -208,6 +206,10 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
         }
         nbt.putInt("Heat", this.getHeat());
+        nbt.putInt("XP", this.getXP());
+        nbt.putInt("Level", this.getLevel());
+        nbt.putBoolean("Eating", this.getEating());
+
     }
 
     public void setOwner(UUID owner) {
@@ -221,6 +223,9 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     }
 
 
+    public void setEating(Boolean bool) {
+        this.IS_EATING = bool;
+    }
 
     public UUID getOwner() {
         return this.OWNER;
@@ -240,6 +245,18 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
             OWNER = nbt.getUuid("Owner");
         }
 
+        if (nbt.contains("Eating")) {
+            IS_EATING = nbt.getBoolean("Eating");
+        }
+
+        if (nbt.contains("Level")) {
+            LEVEL = nbt.getInt("Level");
+        }
+
+        if (nbt.contains("XP")) {
+            XP = nbt.getInt("XP");
+        }
+
         this.setHeat(nbt.getInt("Heat"));
         this.goalSelector.getGoals().clear();
         this.targetSelector.getGoals().clear();
@@ -251,6 +268,14 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
     public int getHeat() {
         return this.HEAT;
+    }
+
+    public int getLevel() {
+        return this.LEVEL;
+    }
+
+    public int getXP() {
+        return this.XP;
     }
 
     public int getMaxHeat() {
@@ -284,7 +309,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         double deltaZ = currentZ - this.prevZ;
 
         double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-        //hi
+
         if (event.isMoving()) {
             //FriendsCraft.LOGGER.info(String.valueOf(speed));
             if(speed <= 0.2F) {
@@ -297,8 +322,11 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
                 }
             }
         } else {
-            if(doesPlayerHasJapariBun()){
+            if (this.getEating()) {
+                event.getController().setAnimation(EAT);
+            } else if(doesPlayerHaveJapariBun()){
                 event.getController().setAnimation(BEG);
+
             } else {
                 event.getController().setAnimation(IDLE);
             }
@@ -306,6 +334,10 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         }
 
         return PlayState.CONTINUE;
+    }
+
+    private boolean getEating() {
+        return this.IS_EATING;
     }
 
     private boolean canPlayRunAnim() {
@@ -325,7 +357,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
         this.angryAt = angryAt;
     }
 
-    private boolean doesPlayerHasJapariBun() {
+    private boolean doesPlayerHaveJapariBun() {
         for (PlayerEntity player : this.getWorld().getEntitiesByClass(PlayerEntity.class, this.getBoundingBox().expand(4), player -> true)) {
             ItemStack item = player.getMainHandStack();
             if (isTamableItem(item)) {

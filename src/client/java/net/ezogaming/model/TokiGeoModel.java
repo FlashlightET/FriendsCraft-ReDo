@@ -6,7 +6,7 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class TokiGeoModel extends GeoModel<TokiEntity> {
     private static final Identifier MODEL = new Identifier("kemonofriends","geo/toki.geo.json");
-    private static final Identifier ANIM = new Identifier("kemonofriends","animations/toki.animation.json");
+    private static final Identifier ANIM = new Identifier("kemonofriends","animations/generic.animation.json");
     private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/toki.png");
 
     private static final Identifier ANIM_WALK = new Identifier("kemonofriends","animations/generic/generic_walk.json");

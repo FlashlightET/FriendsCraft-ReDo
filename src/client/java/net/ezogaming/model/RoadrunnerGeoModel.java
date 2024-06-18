@@ -6,7 +6,7 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class RoadrunnerGeoModel extends GeoModel<RoadrunnerEntity> {
     private static final Identifier MODEL = new Identifier("kemonofriends","geo/roadrunner.geo.json");
-    private static final Identifier ANIM = new Identifier("kemonofriends","animations/roadrunner.animation.json");
+    private static final Identifier ANIM = new Identifier("kemonofriends","animations/generic.animation.json");
     private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/roadrunner.png");
 
     private static final Identifier ANIM_WALK = new Identifier("kemonofriends","animations/generic/generic_walk.json");

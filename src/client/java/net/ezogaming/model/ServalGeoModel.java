@@ -6,7 +6,7 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class ServalGeoModel extends GeoModel<ServalEntity> {
     private static final Identifier MODEL = new Identifier("kemonofriends","geo/serval.geo.json");
-    private static final Identifier ANIM = new Identifier("kemonofriends","animations/serval.animation.json");
+    private static final Identifier ANIM = new Identifier("kemonofriends","animations/generic.animation.json");
     private static final Identifier TEX = new Identifier("kemonofriends","textures/friends/serval.png");
 
     private static final Identifier ANIM_WALK = new Identifier("kemonofriends","animations/generic/generic_walk.json");

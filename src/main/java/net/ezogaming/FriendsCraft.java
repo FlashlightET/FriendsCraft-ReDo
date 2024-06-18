@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
@@ -43,7 +44,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "serval"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ServalEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -55,7 +56,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "toki"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, TokiEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -67,7 +68,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "caracal"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CaracalEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -79,7 +80,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "roadrunner"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RoadrunnerEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -91,7 +92,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "ezo"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, EzoEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -103,7 +104,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "silver_fox"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SilverEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -115,7 +116,7 @@ public class FriendsCraft implements ModInitializer {
 				Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "red_fox"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AkaEntity::new)
-						.dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
 						.build()
 		);
 	}
@@ -123,10 +124,10 @@ public class FriendsCraft implements ModInitializer {
 	// Items
 
 	// Japari buns
-	public static final Item RED_JAPARI_BUN = new Item(new FabricItemSettings());
-	public static final Item YELLOW_JAPARI_BUN = new Item(new FabricItemSettings());
-	public static final Item BLUE_JAPARI_BUN = new Item(new FabricItemSettings());
-	public static final Item ORANGE_JAPARI_BUN = new Item(new FabricItemSettings());
+	public static final Item RED_JAPARI_BUN = new Item(new FabricItemSettings().food(FoodComponents.APPLE));
+	public static final Item YELLOW_JAPARI_BUN = new Item(new FabricItemSettings().food(FoodComponents.APPLE));
+	public static final Item BLUE_JAPARI_BUN = new Item(new FabricItemSettings().food(FoodComponents.APPLE));
+	public static final Item ORANGE_JAPARI_BUN = new Item(new FabricItemSettings().food(FoodComponents.APPLE));
 
 	// Spawn eggs
 	public static final Item SERVAL_SPAWN_EGG = new SpawnEggItem(SERVAL, 0xF5CA52, 0x7F5028, new FabricItemSettings());

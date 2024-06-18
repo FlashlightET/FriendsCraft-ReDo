@@ -25,7 +25,9 @@ public class FriendScreenHandlerFactory implements ExtendedScreenHandlerFactory 
 
     @Override
     public Text getDisplayName() {
-        return this.friend.getName();
+        String translationKey = this.friend.getType().getTranslationKey();
+        return Text.translatable(translationKey).append(" @ Lv." + this.friend.getLevel());
+        //return Text.of(this.friend.getEntityName() + " @ Lv." + this.friend.getLevel());
     }
 
     @Nullable
