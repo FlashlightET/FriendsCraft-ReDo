@@ -3,6 +3,7 @@ package net.ezogaming;
 import net.ezogaming.entity.*;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
@@ -16,15 +17,13 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.FoodComponents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.*;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -47,9 +46,6 @@ public class FriendsCraft implements ModInitializer {
 
 
 
-	//Setup Entities p1
-	public static final EntityType<ServalEntity> SERVAL;
-
 	public static final TagKey<Biome> ARAI_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "arai_biomes"));
 	public static final TagKey<Biome> AKA_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "aka_biomes"));
 	public static final TagKey<Biome> CARACAL_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "caracal_biomes"));
@@ -61,10 +57,12 @@ public class FriendsCraft implements ModInitializer {
 	public static final TagKey<Biome> TOKI_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "toki_biomes"));
 
 
-	//Setup Entities p2
+	//Setup Entities
+
+	public static final EntityType<ServalEntity> SERVAL;
+
 	static {
-		SERVAL = Registry.register(
-				Registries.ENTITY_TYPE,
+		SERVAL = Registry.register(Registries.ENTITY_TYPE,
 				new Identifier("kemonofriends", "serval"),
 				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ServalEntity::new)
 						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
@@ -195,10 +193,19 @@ public class FriendsCraft implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
+
+
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		LOGGER.info("kf mod initializing");
+
+
+
+
+
+
 		FabricDefaultAttributeRegistry.register(SERVAL, ServalEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(TOKI, TokiEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(CARACAL, CaracalEntity.createAttributes());
@@ -214,6 +221,11 @@ public class FriendsCraft implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "yellow_japari_bun"), YELLOW_JAPARI_BUN);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "blue_japari_bun"), BLUE_JAPARI_BUN);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "orange_japari_bun"), ORANGE_JAPARI_BUN);
+
+
+
+
+
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(content -> {
 			content.add(RED_JAPARI_BUN);
 		});
