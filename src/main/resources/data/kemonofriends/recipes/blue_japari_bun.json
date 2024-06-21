@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "WSW"
+    "WMW"
   ],
   "key": {
     "W": {
       "item": "minecraft:wheat"
     },
-    "S": {
-      "item": "minecraft:sugar"
+    "M": {
+      "tag": "minecraft:fishes"
     }
   },
   "result": {
-    "item": "kemonofriends:yellow_japari_bun",
+    "item": "kemonofriends:blue_japari_bun",
     "count": 1
   }
 }

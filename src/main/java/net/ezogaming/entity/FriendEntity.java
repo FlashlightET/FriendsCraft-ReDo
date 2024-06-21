@@ -69,7 +69,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
     public FriendEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
-        FriendsCraft.LOGGER.info("Friend");
+        //FriendsCraft.LOGGER.info("Friend");
         MobNavigation groundNavigation = new MobNavigation(this, world);
 
         groundNavigation.setCanPathThroughDoors(true);
