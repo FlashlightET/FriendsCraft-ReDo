@@ -1,6 +1,7 @@
 package net.ezogaming.entity;
 
 import net.ezogaming.*;
+import net.minecraft.util.math.BlockPos;
 import net.ezogaming.goals.AttackWithOwnerGoalFriend;
 import net.ezogaming.goals.FriendTemptGoal;
 import net.ezogaming.goals.TrackOwnerAttackerGoalFriend;
@@ -25,6 +26,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.registry.Registries;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +40,8 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 
@@ -85,7 +90,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
 
         if (!this.isTamed()) { //Untamed goals
-            this.targetSelector.add(7, new ActiveTargetGoal(this, Monster.class, false));
+            this.targetSelector.add(7, new ActiveTargetGoal(this, HostileEntity.class, false));
             this.goalSelector.add(3, new MeleeAttackGoal(this,1.5, false));
             this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
             this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
@@ -93,7 +98,7 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
             this.goalSelector.add(1, new FriendTemptGoal(this,1.0,false));
         } else {
             //Tamed Goals
-            this.targetSelector.add(7, new ActiveTargetGoal(this, Monster.class, false));
+            this.targetSelector.add(7, new ActiveTargetGoal(this, HostileEntity.class, false));
             this.goalSelector.add(3, new MeleeAttackGoal(this,1.5, false));
             this.goalSelector.add(2, new WanderAroundGoal(this, 1.0));
             this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
@@ -106,6 +111,11 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
     }
 
 
+    public static boolean canSpawn(EntityType<FriendEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        Box spawnCheckBox = new Box(pos).expand(100); // Expands the box to 100 blocks in all directions
+        List<FriendEntity> nearbyEntities = world.getEntitiesByClass(FriendEntity.class, spawnCheckBox, (entity) -> true);
+        return nearbyEntities.isEmpty();
+    }
 
     public static final TagKey<Item> FRIEND_TAMABLE_ITEMS =
             TagKey.of(Registries.ITEM.getKey(), new Identifier("kemonofriends", "friend_tamable_items"));
@@ -234,6 +244,11 @@ public class FriendEntity extends PathAwareEntity implements InventoryOwner, Geo
 
     public void setEating(Boolean bool) {
         this.IS_EATING = bool;
+    }
+
+    @Override
+    public boolean cannotDespawn() {
+        return true;
     }
 
     public UUID getOwner() {

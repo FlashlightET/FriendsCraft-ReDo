@@ -1,4 +1,7 @@
-Also me learning while I move from mcreator to actual java modding, allowing me to make fabric mods for the ~~latest~~ almost latest version (~~1.21~~ 1.20.1) instead of forge mods (ew) for 1.16
+# FriendsCraft
 
-No forge version will ever be made because that should've been left in the past when fabric hit the scene and when the forge devs got caught in a major pickle.
-if you want forge then play kemonocraft but beware kemonocraft sucks
+Partly mod development exercise
+
+A mod to add some ANIMAL BEPPINS to Minecraft
+
+Inspired by KemonoCraft except this one will actually be good

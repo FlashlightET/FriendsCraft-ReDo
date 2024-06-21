@@ -3,6 +3,12 @@ package net.ezogaming;
 import net.ezogaming.entity.*;
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
+
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -17,10 +23,15 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class FriendsCraft implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -212,6 +223,44 @@ public class FriendsCraft implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(RED_FOX_SPAWN_EGG);
 		});
+
+		BiomeModifications.addSpawn(
+				BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
+				SpawnGroup.CREATURE,
+				SERVAL,
+				100, // Weight
+				1,   // Min Group Size
+				1    // Max Group Size
+		);
+
+		BiomeModifications.addSpawn(
+				BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
+				SpawnGroup.CREATURE,
+				CARACAL,
+				100, // Weight
+				1,   // Min Group Size
+				1    // Max Group Size
+		);
+
+		BiomeModifications.addSpawn(
+				BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
+				SpawnGroup.CREATURE,
+				ROADRUNNER,
+				100, // Weight
+				1,   // Min Group Size
+				1    // Max Group Size
+		);
+
+		BiomeModifications.addSpawn(
+				BiomeSelectors.includeByKey(BiomeKeys.DESERT),
+				SpawnGroup.CREATURE,
+				ROADRUNNER,
+				100, // Weight
+				1,   // Min Group Size
+				1    // Max Group Size
+		);
+
+
 
 
 		Registry.register(Registries.SCREEN_HANDLER, FriendsCraft.identifier("friend_screen"), ModInventories.FRIEND);
