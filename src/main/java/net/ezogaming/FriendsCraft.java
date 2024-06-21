@@ -145,6 +145,18 @@ public class FriendsCraft implements ModInitializer {
 		);
 	}
 
+	public static final EntityType<AraiEntity> ARAI;
+
+	static {
+		ARAI = Registry.register(
+				Registries.ENTITY_TYPE,
+				new Identifier("kemonofriends", "raccoon"),
+				FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AraiEntity::new)
+						.dimensions(EntityDimensions.fixed(0.7f, 1.8f))
+						.build()
+		);
+	}
+
 	// Items
 
 	// Japari buns
@@ -161,7 +173,8 @@ public class FriendsCraft implements ModInitializer {
 	public static final Item EZO_SPAWN_EGG = new SpawnEggItem(EZO, 0xE57C40, 0xFFFFFF, new FabricItemSettings());
 	public static final Item SILVER_SPAWN_EGG = new SpawnEggItem(SILVER, 0x485DAF, 0x292F35, new FabricItemSettings());
 	public static final Item RED_FOX_SPAWN_EGG = new SpawnEggItem(RED_FOX, 0xFFFFFF, 0xF08757, new FabricItemSettings());
-	public static final Item FENNEC_SPAWN_EGG = new SpawnEggItem(RED_FOX, 0xFFFFFF, 0xFFEA89, new FabricItemSettings());
+	public static final Item FENNEC_SPAWN_EGG = new SpawnEggItem(FENNEC, 0xFFFFFF, 0xFFEA89, new FabricItemSettings());
+	public static final Item ARAI_SPAWN_EGG = new SpawnEggItem(ARAI, 0x8D9194, 0x292f35, new FabricItemSettings());
 
 
 
@@ -183,6 +196,8 @@ public class FriendsCraft implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(SILVER, SilverEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(RED_FOX, AkaEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(FENNEC, FennecEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(ARAI, AraiEntity.createAttributes());
+
 		//japaribuns
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "red_japari_bun"), RED_JAPARI_BUN);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "yellow_japari_bun"), YELLOW_JAPARI_BUN);
@@ -211,7 +226,7 @@ public class FriendsCraft implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "silver_fox_spawn_egg"), SILVER_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "red_fox_spawn_egg"), RED_FOX_SPAWN_EGG);
 		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "fennec_spawn_egg"), FENNEC_SPAWN_EGG);
-
+		Registry.register(Registries.ITEM, new Identifier("kemonofriends", "raccoon_spawn_egg"), ARAI_SPAWN_EGG);
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(SERVAL_SPAWN_EGG);
@@ -247,6 +262,10 @@ public class FriendsCraft implements ModInitializer {
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
 			content.add(FENNEC_SPAWN_EGG);
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(ARAI_SPAWN_EGG);
 		});
 
 		BiomeModifications.addSpawn(
@@ -312,7 +331,16 @@ public class FriendsCraft implements ModInitializer {
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DESERT),SpawnGroup.CREATURE,FENNEC,100, 1, 1);
 
 
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
+
+
 		Registry.register(Registries.SCREEN_HANDLER, FriendsCraft.identifier("friend_screen"), ModInventories.FRIEND);
+
+
 
 		LOGGER.info("kf mod initialized");
 	}
