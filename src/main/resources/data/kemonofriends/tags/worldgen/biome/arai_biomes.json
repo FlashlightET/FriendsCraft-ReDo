@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:old_growth_birch_forest",
+    "modern_beta:alpha",
+    "modern_beta:beta_forest",
+    "modern_beta:beta_seasonal_forest",
+    "modern_beta:pe_forest",
+    "modern_beta:pe_seasonal_forest"
+  ]
+}

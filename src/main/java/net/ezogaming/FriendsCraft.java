@@ -23,8 +23,11 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.Marker;
@@ -47,7 +50,15 @@ public class FriendsCraft implements ModInitializer {
 	//Setup Entities p1
 	public static final EntityType<ServalEntity> SERVAL;
 
-
+	public static final TagKey<Biome> ARAI_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "arai_biomes"));
+	public static final TagKey<Biome> AKA_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "aka_biomes"));
+	public static final TagKey<Biome> CARACAL_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "caracal_biomes"));
+	public static final TagKey<Biome> EZO_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "ezo_biomes"));
+	public static final TagKey<Biome> FENNEC_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "fennec_biomes"));
+	public static final TagKey<Biome> ROADRUNNER_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "roadrunner_biomes"));
+	public static final TagKey<Biome> SERVAL_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "serval_biomes"));
+	public static final TagKey<Biome> SILVER_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "silver_biomes"));
+	public static final TagKey<Biome> TOKI_BIOMES = TagKey.of(RegistryKeys.BIOME, new Identifier("kemonofriends", "toki_biomes"));
 
 
 	//Setup Entities p2
@@ -268,75 +279,15 @@ public class FriendsCraft implements ModInitializer {
 			content.add(ARAI_SPAWN_EGG);
 		});
 
-		BiomeModifications.addSpawn(
-				BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
-				SpawnGroup.CREATURE,
-				SERVAL,
-				100, // Weight
-				1,   // Min Group Size
-				1    // Max Group Size
-		);
-
-		BiomeModifications.addSpawn(
-				BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
-				SpawnGroup.CREATURE,
-				CARACAL,
-				100, // Weight
-				1,   // Min Group Size
-				1    // Max Group Size
-		);
-
-		BiomeModifications.addSpawn(
-				BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
-				SpawnGroup.CREATURE,
-				ROADRUNNER,
-				100, // Weight
-				1,   // Min Group Size
-				1    // Max Group Size
-		);
-
-		BiomeModifications.addSpawn(
-				BiomeSelectors.includeByKey(BiomeKeys.DESERT),
-				SpawnGroup.CREATURE,
-				ROADRUNNER,
-				100, // Weight
-				1,   // Min Group Size
-				1    // Max Group Size
-		);
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.BADLANDS),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.ERODED_BADLANDS),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.WOODED_BADLANDS),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
-
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.STONY_PEAKS),SpawnGroup.CREATURE,TOKI,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JAGGED_PEAKS),SpawnGroup.CREATURE,TOKI,100, 1, 1);
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SNOWY_TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_PINE_TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SNOWY_SLOPES),SpawnGroup.CREATURE,SILVER,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FROZEN_PEAKS),SpawnGroup.CREATURE,SILVER,100, 1, 1);
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SNOWY_SLOPES),SpawnGroup.CREATURE,EZO,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FROZEN_PEAKS),SpawnGroup.CREATURE,EZO,100, 1, 1);
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DESERT),SpawnGroup.CREATURE,FENNEC,100, 1, 1);
-
-
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST),SpawnGroup.CREATURE,ARAI,100, 1, 1);
-
+		BiomeModifications.addSpawn(BiomeSelectors.tag(SERVAL_BIOMES),SpawnGroup.CREATURE,SERVAL,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(CARACAL_BIOMES),SpawnGroup.CREATURE,CARACAL,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(ROADRUNNER_BIOMES),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(TOKI_BIOMES),SpawnGroup.CREATURE,TOKI,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(AKA_BIOMES),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(SILVER_BIOMES),SpawnGroup.CREATURE,SILVER,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(EZO_BIOMES),SpawnGroup.CREATURE,EZO,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(FENNEC_BIOMES),SpawnGroup.CREATURE,FENNEC,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(ARAI_BIOMES),SpawnGroup.CREATURE,ARAI,100, 1, 1);
 
 		Registry.register(Registries.SCREEN_HANDLER, FriendsCraft.identifier("friend_screen"), ModInventories.FRIEND);
 

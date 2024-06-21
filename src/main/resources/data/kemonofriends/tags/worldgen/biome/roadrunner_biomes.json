@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:savanna",
+    "minecraft:desert",
+    "minecraft:badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:wooded_badlands",
+    "modern_beta:alpha",
+    "modern_beta:beta_desert",
+    "modern_beta:pe_desert",
+    "modern_beta:beta_savanna",
+    "modern_beta:pe_savanna"
+  ]
+}
