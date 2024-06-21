@@ -262,7 +262,29 @@ public class FriendsCraft implements ModInitializer {
 				1    // Max Group Size
 		);
 
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.BADLANDS),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.ERODED_BADLANDS),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.WOODED_BADLANDS),SpawnGroup.CREATURE,ROADRUNNER,100, 1, 1);
 
+
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.STONY_PEAKS),SpawnGroup.CREATURE,TOKI,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JAGGED_PEAKS),SpawnGroup.CREATURE,TOKI,100, 1, 1);
+
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SNOWY_TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_BIRCH_FOREST),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_PINE_TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA),SpawnGroup.CREATURE,RED_FOX,100, 1, 1);
+
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SNOWY_SLOPES),SpawnGroup.CREATURE,SILVER,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FROZEN_PEAKS),SpawnGroup.CREATURE,SILVER,100, 1, 1);
+
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SNOWY_SLOPES),SpawnGroup.CREATURE,EZO,100, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.FROZEN_PEAKS),SpawnGroup.CREATURE,EZO,100, 1, 1);
 
 
 		Registry.register(Registries.SCREEN_HANDLER, FriendsCraft.identifier("friend_screen"), ModInventories.FRIEND);
